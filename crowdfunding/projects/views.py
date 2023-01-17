@@ -5,7 +5,7 @@ from django.http import Http404
 from rest_framework import status, generics
 
 from .models import Project, Pledge
-from .serializers import ProjectSerializer, PledgeSerializer
+from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 
 # Create your views here.
 
