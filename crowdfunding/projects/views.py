@@ -6,12 +6,11 @@ from rest_framework import status, generics, permissions
 
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
+from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.
 
 class ProjectList(APIView):
-
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 	def get(self, request):
 		projects = Project.objects.all()
@@ -26,10 +25,16 @@ class ProjectList(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProjectDetail(APIView):
+
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+	IsOwnerOrReadOnly]
+
 	# second pk = the pk next to self
 	def get_object(self, pk):
 		try:
-			return Project.objects.get(pk=pk)
+			project = Project.objects.get(pk=pk)
+			self.check_object_permissions(self.request, project)
+			return project
 		except Project.DoesNotExist:
 			raise Http404
 		# return Project.objects.get(pk=pk)
