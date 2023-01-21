@@ -12,6 +12,9 @@ from .permissions import IsOwnerOrReadOnly
 
 class ProjectList(APIView):
 
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+	IsOwnerOrReadOnly]
+
 	def get(self, request):
 		projects = Project.objects.all()
 		serializer = ProjectSerializer(projects, many=True)
