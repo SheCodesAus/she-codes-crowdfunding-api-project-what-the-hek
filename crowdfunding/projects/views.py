@@ -27,6 +27,22 @@ class ProjectList(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# get 2 most recent and 2 oldest projects that aren't closed
+# class OpenProjectList(APIView):
+
+# 	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+# 	IsOwnerOrReadOnly]
+
+# 	def get(self, request):
+# 		serializer = ProjectSerializer(projects, many=True)
+# 		context = Project.objects.order_by('-date_created')[:2]
+# 		context = Project.objects.filter_by(is_open=True)
+# 		return Response(serializer.data)
+
+
+
+
+
 class ProjectDetail(APIView):
 
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
