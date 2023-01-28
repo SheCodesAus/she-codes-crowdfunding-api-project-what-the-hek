@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGOS_SECRET_KEY',
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') != 'False'
 
-ALLOWED_HOSTS = ['morning-resonance-16.fly.dev']
+ALLOWED_HOSTS = ['morning-resonance-16.fly.dev', 'localhost', '127.0.0.1']
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 
