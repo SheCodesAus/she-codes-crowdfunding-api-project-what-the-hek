@@ -24,9 +24,10 @@ SECRET_KEY = os.environ.get('DJANGOS_SECRET_KEY',
 'django-insecure-6f5fiv53l$d=%d_0_8&znvd!6&d3rfy-qowzswx^u)i-p_dsm6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') != 'False'
+# DEBUG = os.environ.get('DJANGO_DEBUG', 'False') != 'False'
+DEBUG = True
 
-ALLOWED_HOSTS = ['morning-resonance-16.fly.dev', 'localhost', ]
+ALLOWED_HOSTS = ['morning-resonance-16.fly.dev', 'localhost', '127.0.0.1']
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 
@@ -35,6 +36,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'corsheaders',
     'django.contrib.admin',
@@ -137,7 +139,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-    	   'rest_framework.authentication.TokenAuthentication',
+           'rest_framework.authentication.TokenAuthentication',
     	   'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+            'django_filters.rest_framework.DjangoFilterBackend',
     ]
 }
