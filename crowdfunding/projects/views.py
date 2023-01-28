@@ -39,7 +39,7 @@ class ProjectList(APIView):
 	# 	context = Project.objects.order_by('-date_created')[:2]
 	# 	context = Project.objects.filter_by(is_open=True)
 	# 	return Response(serializer.data)
-class ProjectListview(generics.ListAPIView):
+class ProjectListFilter(generics.ListAPIView):
 	queryset = Project.objects.all()
 	serializer_class = ProjectSerializer
 	filter_backends = [DjangoFilterBackend]
