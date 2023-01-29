@@ -92,9 +92,13 @@ I've not been able to implement a check to ensure the username is unique yet.
 
 A simple filter to see a list of projects based on the name of the project owner, date created, and whether the project is open or closed.
 
-- [ ] Comments or Categories (sorry I ran out of time)
+- [X] Reset password
 
-{{ description of feature 3 }}
+Logged in user can change their password.
+
+- [] Comments or Categories (sorry I ran out of time)
+
+{{ description of feature 4 }}
 
 ### External libraries used
 

@@ -65,6 +65,10 @@ class ProjectDetail(APIView):
 		return Response(serializer.errors)
 
 class PledgeList(generics.ListCreateAPIView):
+
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+	IsOwnerOrReadOnly]
+
 	queryset = Pledge.objects.filter(anonymous=False)
 	serializer_class = PledgeSerializer
 
@@ -72,6 +76,10 @@ class PledgeList(generics.ListCreateAPIView):
 		serializer.save(supporter=self.request.user)
 
 class PledgeDetails(generics.UpdateAPIView):
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+	IsOwnerOrReadOnly]
+
 	queryset = Pledge.objects.all()
 	serializer_class = PledgeSerializer
 	

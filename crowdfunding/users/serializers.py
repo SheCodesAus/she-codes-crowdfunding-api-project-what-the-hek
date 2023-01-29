@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 import random
 import string
 
@@ -30,3 +31,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.set_password(validated_data['password'])
         instance.save()
         return instance
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = CustomUser
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
