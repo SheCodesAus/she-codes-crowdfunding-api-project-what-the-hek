@@ -36,3 +36,22 @@ class ProjectSerializer(serializers.Serializer):
 
 class ProjectDetailSerializer(ProjectSerializer):
     pledges = PledgeSerializer(many=True, read_only=True)
+
+    
+    # queryset = Pledge.objects.filter(anonymous=False)
+
+    # for anon in pledges:
+    #     if 'anonymous' == False
+    #             pledges = PledgeSerializer(many=True, read_only=True)
+        # print('There are no pledges')
+
+# class ProjectDetailSerializer(serializers.ModelSerializer):
+#     pledges = serializers.SerializerMethodField()
+
+#     def view_pledges(self, ):
+#         queryset = Pledge.objects.filter(anonymous=False)
+#         pledges = PledgeSerializer(many=True, read_only=True)
+#         serializer = LikeSerializer(instance=queryset, many=True)
+#         return serialzer.data
+#     class Meta:
+#         model = Pledge
