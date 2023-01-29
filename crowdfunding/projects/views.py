@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status, generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
@@ -14,6 +15,11 @@ class ProjectList(APIView):
 
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
 	IsOwnerOrReadOnly]
+
+	# queryset = Project.objects.all()
+	# serializer_class = ProjectSerializer
+	# filter_backends = [DjangoFilterBackend]
+	# filterset_fields = ['date_created', 'is_open']
 
 	def get(self, request):
 		projects = Project.objects.all()
@@ -27,6 +33,17 @@ class ProjectList(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# get 2 most recent and 2 oldest projects that aren't closed
+	# def get_queryset(self, request):
+	# 	queryset = Project.objects.all()
+	# 	context = Project.objects.order_by('-date_created')[:2]
+	# 	context = Project.objects.filter_by(is_open=True)
+	# 	return Response(serializer.data)
+class ProjectListFilter(generics.ListAPIView):
+	queryset = Project.objects.all()
+	serializer_class = ProjectSerializer
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['owner', 'date_created', 'is_open']
 class ProjectDetail(APIView):
 
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
@@ -61,7 +78,8 @@ class ProjectDetail(APIView):
 		return Response(serializer.errors)
 
 class PledgeList(generics.ListCreateAPIView):
-	queryset = Pledge.objects.all()
+	# queryset = Pledge.objects.all()
+	queryset = Pledge.objects.filter(anonymous=False)
 	serializer_class = PledgeSerializer
 
 	def perform_create(self, serializer):

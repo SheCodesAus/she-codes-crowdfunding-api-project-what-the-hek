@@ -1,18 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
 
-# class CustomUserSerializer(serializers.Serializer):
-#     id = serializers.ReadOnlyField()
-#     username = serializers.CharField(max_length=150)
-#     email = serializers.EmailField()
-
-    # def create(self, validated_data):
-    #     CustomUser.set_password(validated_data['password'])
-    #     CustomUser.save()
-
-    #     return CustomUser.objects.create(**validated_data)
-
-# no
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
