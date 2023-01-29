@@ -9,7 +9,7 @@ class PledgeSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'supporter']
         # or this does the same
         # fields = '__all__'
-        
+
 class ProjectSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     title = serializers.CharField(max_length=200)
@@ -35,6 +35,10 @@ class ProjectSerializer(serializers.Serializer):
         return instance
 
 class ProjectDetailSerializer(ProjectSerializer):
+    # class Meta:
+    #     model = Pledge
+    #     read_only_fields = ['amount']
+
     pledges = PledgeSerializer(many=True, read_only=True)
 
     

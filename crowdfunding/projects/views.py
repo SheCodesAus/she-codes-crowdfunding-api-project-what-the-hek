@@ -9,17 +9,10 @@ from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 from .permissions import IsOwnerOrReadOnly
 
-# Create your views here.
-
 class ProjectList(APIView):
 
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
 	IsOwnerOrReadOnly]
-
-	# queryset = Project.objects.all()
-	# serializer_class = ProjectSerializer
-	# filter_backends = [DjangoFilterBackend]
-	# filterset_fields = ['date_created', 'is_open']
 
 	def get(self, request):
 		projects = Project.objects.all()
@@ -33,12 +26,6 @@ class ProjectList(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# get 2 most recent and 2 oldest projects that aren't closed
-	# def get_queryset(self, request):
-	# 	queryset = Project.objects.all()
-	# 	context = Project.objects.order_by('-date_created')[:2]
-	# 	context = Project.objects.filter_by(is_open=True)
-	# 	return Response(serializer.data)
 class ProjectListFilter(generics.ListAPIView):
 	queryset = Project.objects.all()
 	serializer_class = ProjectSerializer
@@ -78,9 +65,16 @@ class ProjectDetail(APIView):
 		return Response(serializer.errors)
 
 class PledgeList(generics.ListCreateAPIView):
-	# queryset = Pledge.objects.all()
 	queryset = Pledge.objects.filter(anonymous=False)
 	serializer_class = PledgeSerializer
 
 	def perform_create(self, serializer):
 		serializer.save(supporter=self.request.user)
+
+class PledgeDetails(generics.UpdateAPIView):
+	queryset = Pledge.objects.all()
+	serializer_class = PledgeSerializer
+	
+	def perform_update(self, serializer):
+		instance = serializer.save(supporter=self.request.user)
+		return instance

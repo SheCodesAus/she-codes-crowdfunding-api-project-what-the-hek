@@ -8,6 +8,7 @@ urlpatterns = [
     path('projects/filter', views.ProjectListFilter.as_view(), name="project-list-filter"),
     path('projects/<int:pk>/', views.ProjectDetail.as_view(), name="project-detail"),
     path('pledges/', views.PledgeList.as_view(), name="pledge-list"),
+    path('pledges/<int:pk>/', views.PledgeDetails.as_view(), name="pledge-list-detail"),
 ]
 
 # can force it to use json or other language, may take out next session

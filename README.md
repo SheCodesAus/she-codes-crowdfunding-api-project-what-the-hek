@@ -1,6 +1,6 @@
-# {{ my project title }}
+# final website name TBD - considering 'worth it', 'uplift' or similar empowering titles
 
-{{ a paragraph detailing the purpose and target audience }}
+A crowdfunding website for people leaving or recovering from family and domestic violence situations.
 
 ## Features
 
@@ -34,47 +34,47 @@
 - Project
   - [X] Create
   - [X] Retrieve
-  - [ ] Update
-  - [ ] Destroy
+  - [X] Update
+  - [ ] Destroy - people can close their project rather than delete it
 - Pledge
   - [X] Create
   - [X] Retrieve
-  - [ ] Update
-  - [ ] Destroy
+  - [X] Update - haven't removed ability to change pledge amount yet
+  - [ ] Destroy - as people are donating money, we don't want them to be able to take it back
 - User
   - [X] Create
   - [X] Retrieve
-  - [ ] Update
-  - [ ] Destroy
+  - [X] Update
+  - [X] Destroy
 
 ### Implement suitable permissions
 
 **Note: Not all of these may be required for your project, if you have not included one of these please justify why.**
 
 - Project
-  - [ ] Limit who can create
-  - [ ] Limit who can retrieve
-  - [ ] Limit who can update
-  - [ ] Limit who can delete
+  - [X] Limit who can create
+  - [ ] Limit who can retrieve - anyone can view projects
+  - [X] Limit who can update
+  - [ ] Limit who can delete - no one can delete
 - Pledge
   - [ ] Limit who can create
-  - [ ] Limit who can retrieve
+  - [ ] Limit who can retrieve - anyone can view pledges
   - [ ] Limit who can update
-  - [ ] Limit who can delete
-- Pledge
+  - [ ] Limit who can delete - no one can delete, project owner will have ability to hide pledges in future
+- User
   - [ ] Limit who can retrieve
   - [ ] Limit who can update
   - [ ] Limit who can delete
 
 ### Implement relevant status codes
 
-- [ ] Get returns 200
-- [ ] Create returns 201
-- [ ] Not found returns 404
+- [X] Get returns 200
+- [X] Create returns 201
+- [X] Not found returns 404
 
 ### Handle failed requests gracefully 
 
-- [ ] 404 response returns JSON rather than text
+- [X] 404 response returns JSON rather than text
 
 ### Use token authentication
 
@@ -82,21 +82,23 @@
 
 ## Additional features
 
-- [ ] {Title Feature 1}
+- [X] Random user generator
 
-{{ description of feature 1 }}
+Creates a randomly generated character string for the username of new accounts. This is a read only field. the intention behind this feature is so the user cannot accidentally reveal their identity online through their username. 
 
-- [ ] {Title Feature 2}
+I've not been able to implement a check to ensure the username is unique yet.
 
-{{ description of feature 2 }}
+- [X] Filter
 
-- [ ] {Title Feature 3}
+A simple filter to see a list of projects based on the name of the project owner, date created, and whether the project is open or closed.
+
+- [ ] Comments or Categories (sorry I ran out of time)
 
 {{ description of feature 3 }}
 
 ### External libraries used
 
-- [ ] django-filter
+- [X] django-filter
 
 
 ## Part A Submission
