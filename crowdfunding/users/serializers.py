@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 import random
 import string
 
@@ -26,13 +27,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        # instance.username = validated_data.get('username', instance.username)
         instance.email = validated_data.get('email', instance.email)
         instance.set_password(validated_data['password'])
         instance.save()
         return instance
-        
-        # for user in CustomUser:
-        #     username=random_username()
-        #     if username(unique=True) == False
-        #         username=random_username()
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = CustomUser
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

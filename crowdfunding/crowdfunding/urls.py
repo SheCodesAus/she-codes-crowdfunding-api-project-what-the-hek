@@ -16,7 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+from django.http import JsonResponse
 
+def custom404(request, exception=None):
+    return JsonResponse({
+        'status_code': 404,
+        'error': 'The resource was not found'
+    })
+handler404 = custom404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
