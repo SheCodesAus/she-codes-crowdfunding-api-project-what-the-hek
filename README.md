@@ -86,7 +86,7 @@ A crowdfunding website for people leaving or recovering from family and domestic
 
 Creates a randomly generated character string for the username of new accounts. This is a read only field. the intention behind this feature is so the user cannot accidentally reveal their identity online through their username. 
 
-I've not been able to implement a check to ensure the username is unique yet.
+I've not been able to implement a check to ensure the username is unique yet, but I'm working on it.
 
 - [X] Filter
 
@@ -96,7 +96,7 @@ A simple filter to see a list of projects based on the name of the project owner
 
 Logged in user can change their password.
 
-- [] Comments or Categories (sorry I ran out of time)
+- [ ] Comments or Categories (sorry I ran out of time)
 
 {{ description of feature 4 }}
 
@@ -107,11 +107,11 @@ Logged in user can change their password.
 
 ## Part A Submission
 
-- [ ] A link to the deployed project.
-- [ ] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
-- [ ] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
-- [ ] A screenshot of Insomnia, demonstrating a token being returned.
-- [ ] Your refined API specification and Database Schema.
+- [X] A link to the deployed project: https://morning-resonance-16.fly.dev/admin/
+- [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+- [X] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+- [X] A screenshot of Insomnia, demonstrating a token being returned.
+- [ ] Your refined API specification and Database Schema. - I've added my original 10 page document that I submitted for homework, will update when I get a chance
 
 ### Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data).
 
@@ -119,24 +119,24 @@ Logged in user can change their password.
 
 ```shell
 curl --request POST \
-  --url http://127.0.0.1:8000/users/ \
+  --url http://localhost:8000/users/ \
   --header 'Content-Type: application/json' \
   --data '{
-	"username": "testuser",
-	"email": "not@myemail.com",
-	"password": "not-my-password"
+	"email": "admin5@admin.com",
+	"password": "admin"
 }'
 ```
+--- please note for above username is omitted because it's randomly generated (see insomnia screenshot)
 
 2. Sign in User
 
 ```shell
 curl --request POST \
-  --url http://127.0.0.1:8000/api-token-auth/ \
+  --url http://localhost:8000/api-token-auth/ \
   --header 'Content-Type: application/json' \
   --data '{
-	"username": "testuser",
-	"password": "not-my-password"
+	"username": "admin",
+	"password": "admin"
 }'
 ```
 
@@ -144,15 +144,15 @@ curl --request POST \
 
 ```shell
 curl --request POST \
-  --url http://127.0.0.1:8000/projects/ \
-  --header 'Authorization: Token 5b8c82ec35c8e8cb1fac24f8eb6d480a367f322a' \
+  --url http://localhost:8000/projects/ \
+  --header 'Authorization: Token 4d5c65912a641cf77554de903ad5c252ed43da64' \
   --header 'Content-Type: application/json' \
   --data '{
-	"title": "Donate a cat",
-	"description": "Please help, we need a cat for she codes plus, our class lacks meows.",
-	"goal": 1,
+	"title": "Fundraising for a new home",
+	"description": "I'\''m trying to raise enough bond money for a rental.",
+	"goal": "1500",
 	"image": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Dollar_bill_and_small_change.jpg",
-	"is_open": true,
-	"date_created": "2023-01-28T05:53:46.113Z"
+	"is_open": "True",
+	"date_created": "2023-01-29T12:23:55.671Z"
 }'
 ```
