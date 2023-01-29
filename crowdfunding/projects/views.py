@@ -78,7 +78,8 @@ class ProjectDetail(APIView):
 		return Response(serializer.errors)
 
 class PledgeList(generics.ListCreateAPIView):
-	queryset = Pledge.objects.all()
+	# queryset = Pledge.objects.all()
+	queryset = Pledge.objects.filter(anonymous=False)
 	serializer_class = PledgeSerializer
 
 	def perform_create(self, serializer):
