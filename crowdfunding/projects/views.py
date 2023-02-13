@@ -7,7 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
 
 class ProjectList(APIView):
 
@@ -66,8 +66,8 @@ class ProjectDetail(APIView):
 
 class PledgeList(generics.ListCreateAPIView):
 
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-	IsOwnerOrReadOnly]
+	# permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+	# IsOwnerOrReadOnly]
 
 	queryset = Pledge.objects.filter(anonymous=False)
 	serializer_class = PledgeSerializer
@@ -78,11 +78,38 @@ class PledgeList(generics.ListCreateAPIView):
 class PledgeDetails(generics.UpdateAPIView):
 	
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-	IsOwnerOrReadOnly]
+	IsSupporterOrReadOnly]
 
 	queryset = Pledge.objects.all()
 	serializer_class = PledgeSerializer
 	
-	def perform_update(self, serializer):
-		instance = serializer.save(supporter=self.request.user)
-		return instance
+	def get_object(self, pk):
+		try:
+			pledge = Pledge.objects.get(pk=pk)
+			self.check_object_permissions(self.request, pledge)
+			return pledge
+		except Pledge.DoesNotExist:
+			raise Http404
+	
+	def get(self, request, pk):
+		pledge = self.get_object(pk)
+		serializer = PledgeSerializer(pledge)
+		return Response(serializer.data)
+
+	def put(self, request, pk):
+		pledge = self.get_object(pk)
+		data = request.data
+		serializer = PledgeSerializer(
+			instance=pledge,
+			data=data,
+			partial=True
+		)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors)
+
+# this one stopped working when I added the get functions
+	# def perform_update(self, serializer):
+	# 	instance = serializer.save(supporter=self.request.user)
+	# 	return instance

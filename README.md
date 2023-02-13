@@ -58,8 +58,8 @@ A crowdfunding website for people leaving or recovering from family and domestic
   - [ ] Limit who can delete - no one can delete
 - Pledge
   - [X] Limit who can create
-  - [ ] Limit who can retrieve - can see list but not individal pledge details
-  - [X] Limit who can update - haven't removed amount yet from being editible
+  - [X] Limit who can retrieve
+  - [X] Limit who can update - only supporter can edit, but I want to remove the ability to edit amount
   - [ ] Limit who can delete - no one can delete, project owner will have ability to hide pledges in future
 - User
   - [ ] Limit who can retrieve

@@ -8,6 +8,11 @@ from .serializers import CustomUserSerializer, ChangePasswordSerializer
 from projects.permissions import IsOwnerOrReadOnly
 class CustomUserList(APIView):
 
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+	IsOwnerOrReadOnly]
+
+	# if request.user.is_authenticated:
+
 	def get(self, request):
 		users = CustomUser.objects.all()
 		serializer = CustomUserSerializer(users, many=True)
